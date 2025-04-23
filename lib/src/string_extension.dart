@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
+
 extension TranslationExtension on String {
-  String tr() {
-    // This is just a marker for strings to be translated.
-    return this;
+  String translate() {
+    return StringTranslateExtension(
+      this,
+    ).tr(); // Explicitly specify the extension
   }
 }
