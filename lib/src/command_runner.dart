@@ -44,7 +44,6 @@ class CommandRunner {
           print('No strings found to push.');
           return;
         }
-        print('Extracted strings: $strings');
         final service = GoogleSheetService(
           sheetUrl: sheetUrl,
           spreadsheetId: sheetId,
