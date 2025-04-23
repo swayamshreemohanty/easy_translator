@@ -5,16 +5,22 @@ class StringExtractor {
 
   StringExtractor(this.projectPath);
 
-  final String translationSuffix = '.translate()';
+  final String translationSuffix = 'translate';
 
   Future<List<String>> extractStrings() async {
     final List<String> extractedStrings = [];
     final dir = Directory(projectPath);
 
+    // Updated regex to handle multiline cases
+    final regex = RegExp(
+      '"(.+?)"\\s*\\.\\s*${RegExp.escape(translationSuffix)}\\(\\)',
+      multiLine: true,
+    );
+
     await for (var entity in dir.list(recursive: true)) {
       if (entity is File && entity.path.endsWith('.dart')) {
         final content = await entity.readAsString();
-        final matches = RegExp(r'"(.*?)"' + RegExp.escape(translationSuffix)).allMatches(content);
+        final matches = regex.allMatches(content);
         for (var match in matches) {
           extractedStrings.add(match.group(1)!);
         }
