@@ -90,9 +90,6 @@ class GoogleSheetService {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           );
 
-          print('Redirect status code: ${redirectResponse.statusCode}');
-          print('Redirect response body: ${redirectResponse.body}');
-
           if (redirectResponse.statusCode != 200) {
             throw Exception(
               'Failed to push strings to Google Sheet after redirect: ${redirectResponse.body}',
