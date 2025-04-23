@@ -32,12 +32,11 @@ class CommandRunner {
 
     final command = arguments[0];
     switch (command) {
-      case 'extract':
-        final extractor = StringExtractor('$projectPath/$sourcePath');
-        final strings = await extractor.extractStrings();
-        print('Extracted strings: $strings');
-        break;
-
+      // case 'extract':
+      //   final extractor = StringExtractor('$projectPath/$sourcePath');
+      //   final strings = await extractor.extractStrings();
+      //   print('Extracted strings: $strings');
+      //   break;
       case 'push':
         final extractor = StringExtractor('$projectPath/$sourcePath');
         final strings = await extractor.extractStrings(); // Extract strings
@@ -52,7 +51,6 @@ class CommandRunner {
           sheetName: sheetName,
         );
         await service.pushStrings(strings); // Push extracted strings
-        print('Strings pushed to Google Sheet: $strings');
         break;
 
       case 'fetch':
