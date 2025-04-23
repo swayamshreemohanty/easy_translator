@@ -96,9 +96,7 @@ class GoogleSheetService {
             );
           }
 
-          print(
-            'Strings pushed successfully after redirect: ${redirectResponse.body}',
-          );
+          print('Strings pushed successfully');
           return;
         }
       }
