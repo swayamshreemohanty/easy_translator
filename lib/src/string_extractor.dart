@@ -11,9 +11,9 @@ class StringExtractor {
     final List<String> extractedStrings = [];
     final dir = Directory(projectPath);
 
-    // Updated regex to handle multiline cases
+    // Regex to handle multiline cases
     final regex = RegExp(
-      '"(.+?)"\\s*\\.\\s*${RegExp.escape(translationSuffix)}\\(\\)',
+      '''['"](.+?)['"]\\s*\\.\\s*${RegExp.escape(translationSuffix)}\\(\\)''',
       multiLine: true,
     );
 
