@@ -45,6 +45,11 @@ class CommandRunner {
           sheetName: sheetName,
         );
         await service.pushStrings(strings); // Push extracted strings
+
+        //Click the link to open the Google Sheet in the browser
+        print(
+          'Open the Google Sheet to start translating: https://docs.google.com/spreadsheets/d/$sheetId',
+        );
         break;
 
       case 'fetch':
