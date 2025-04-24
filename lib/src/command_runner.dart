@@ -16,8 +16,8 @@ class CommandRunner {
     final projectPath = Directory.current.path;
 
     // Read the configuration from pubspec.yaml
-    final pubspecReader = PubspecReader(projectPath);
-    final config = await pubspecReader.readEasyTranslatorConfig();
+    final pubspecManager = PubspecManager(projectPath);
+    final config = await pubspecManager.readEasyTranslatorConfig();
 
     final sourcePath = config['path'] ?? 'lib';
     final outputPath = config['output_path'] ?? 'assets/language';
@@ -32,11 +32,6 @@ class CommandRunner {
 
     final command = arguments[0];
     switch (command) {
-      // case 'extract':
-      //   final extractor = StringExtractor('$projectPath/$sourcePath');
-      //   final strings = await extractor.extractStrings();
-      //   print('Extracted strings: $strings');
-      //   break;
       case 'push':
         final extractor = StringExtractor('$projectPath/$sourcePath');
         final strings = await extractor.extractStrings(); // Extract strings
@@ -83,6 +78,12 @@ class CommandRunner {
           await generator.generateJson(translations);
 
           print('JSON files generated successfully.');
+
+          // Add the assets path to pubspec.yaml
+          await pubspecManager.addAssetsPath(
+            outputPath.endsWith('/') ? outputPath : '$outputPath/',
+          ); // Ensure the path ends with a slash
+          print('Assets path added to pubspec.yaml.');
         } catch (e) {
           print('Error while fetching translations: $e');
         }
