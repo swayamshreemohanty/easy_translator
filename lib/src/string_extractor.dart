@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 
 class StringExtractor {
@@ -8,7 +9,7 @@ class StringExtractor {
   final String translationSuffix = 'translate';
 
   Future<List<String>> extractStrings() async {
-    final List<String> extractedStrings = [];
+    final HashSet<String> extractedStrings = HashSet<String>();
     final dir = Directory(projectPath);
 
     // Regex to handle multiline cases
@@ -22,11 +23,13 @@ class StringExtractor {
         final content = await entity.readAsString();
         final matches = regex.allMatches(content);
         for (var match in matches) {
-          extractedStrings.add(match.group(1)!);
+          extractedStrings.add(
+            match.group(1)!,
+          ); // Add to HashSet to ensure uniqueness
         }
       }
     }
 
-    return extractedStrings;
+    return extractedStrings.toList(); // Convert HashSet back to a List
   }
 }
